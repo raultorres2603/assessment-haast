@@ -1,10 +1,13 @@
 import { Viewer } from "./components/Viewer";
 import "./App.css";
+import { CTodo } from "./provider/CTodo";
 
 function App() {
   return (
     <>
-      <Viewer />
+      <CTodo>
+        <Viewer />
+      </CTodo>
     </>
   );
 }
