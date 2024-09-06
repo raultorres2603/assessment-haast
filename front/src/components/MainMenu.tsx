@@ -178,7 +178,7 @@ export const MainMenu = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 border border-5 rounded-lg gap-4">
         <div className="toDoColumn">
-          <div className="titleColumn bg-sky-500 rounded-lg">Por hacer</div>
+          <div className="titleColumn bg-zinc-500 rounded-lg">Por hacer</div>
           <div className="grid grid-cols-1">
             {todos.map((todo) => {
               if (todo.state === "toDo") {
@@ -217,7 +217,7 @@ export const MainMenu = () => {
           </div>
         </div>
         <div className="doingColumn">
-          <div className="titleColumn bg-sky-500 rounded-lg">Haciendo</div>
+          <div className="titleColumn bg-zinc-500 rounded-lg">Haciendo</div>
           <div className="grid grid-cols-1">
             {todos.map((todo) => {
               if (todo.state === "doing") {
@@ -256,7 +256,7 @@ export const MainMenu = () => {
           </div>
         </div>
         <div className="doneColumn">
-          <div className="titleColumn bg-sky-500 rounded-lg">Hecho</div>
+          <div className="titleColumn bg-zinc-500 rounded-lg">Hecho</div>
           <div className="grid grid-cols-1">
             {todos.map((todo) => {
               if (todo.state === "done") {
