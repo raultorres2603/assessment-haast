@@ -62,6 +62,13 @@ export const MainMenu = () => {
           toast.success("Tarea añadida", { id: loading });
         }
       } catch (error) {
+        if (
+          (error instanceof Error && error.name === "JWSInvalid") ||
+          (error instanceof Error && error.name == "JWTExpired")
+        ) {
+          sessionStorage.removeItem("token");
+          window.location.pathname = "/";
+        }
         console.log(error);
         toast.error("Error al añadir la tarea", { id: loading });
       }
@@ -91,6 +98,13 @@ export const MainMenu = () => {
         toast.success("Tarea actualizada", { id: loading });
       }
     } catch (error) {
+      if (
+        (error instanceof Error && error.name === "JWSInvalid") ||
+        (error instanceof Error && error.name == "JWTExpired")
+      ) {
+        sessionStorage.removeItem("token");
+        window.location.pathname = "/";
+      }
       console.log(error);
       toast.error("Error al actualizar la tarea", { id: loading });
     }
@@ -114,6 +128,13 @@ export const MainMenu = () => {
         toast.success("Tarea eliminada", { id: loading });
       }
     } catch (error) {
+      if (
+        (error instanceof Error && error.name === "JWSInvalid") ||
+        (error instanceof Error && error.name == "JWTExpired")
+      ) {
+        sessionStorage.removeItem("token");
+        window.location.pathname = "/";
+      }
       console.log(error);
       toast.error("Error al eliminar la tarea", { id: loading });
     }
@@ -163,7 +184,7 @@ export const MainMenu = () => {
                     <div className="grid grid-cols-3">
                       <div className="todoChangeState">
                         <button
-                          className="transition duration-200 text-xs lg:text-xl justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
+                          className="transition duration-200 text-xs justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110 lg:text-md"
                           onClick={async () => {
                             await deleteTodo(todo);
                           }}
@@ -174,7 +195,7 @@ export const MainMenu = () => {
                       <div className="todoTitle">{todo.title}</div>
                       <div className="todoChangeState">
                         <button
-                          className="transition duration-200 text-xs lg:text-xl justify-center items-center bg-green-500 hover:bg-green-600 hover:scale-110"
+                          className="transition duration-200 text-xs lg:text-md justify-center items-center bg-green-500 hover:bg-green-600 hover:scale-110"
                           onClick={async () => {
                             await changeStatus("doing", todo);
                           }}
@@ -197,12 +218,12 @@ export const MainMenu = () => {
                 return (
                   <div
                     key={todo.id}
-                    className="todo p-1 text-md text-center border border-5 rounded-lg bg-green-500 text-black"
+                    className="todo p-1 text-md text-center border border-5 rounded-lg bg-sky-500 text-black"
                   >
                     <div className="grid grid-cols-3">
                       <div className="todoChangeState">
                         <button
-                          className="transition duration-200 text-xs lg:text-xl justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
+                          className="transition duration-200 text-xs lg:text-md justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
                           onClick={async () => {
                             await changeStatus("toDo", todo);
                           }}
@@ -213,7 +234,7 @@ export const MainMenu = () => {
                       <div className="todoTitle">{todo.title}</div>
                       <div className="todoChangeState">
                         <button
-                          className="transition duration-200 text-xs lg:text-xl justify-center items-center bg-blue-500 hover:bg-blue-600 hover:scale-110"
+                          className="transition duration-200 text-xs lg:text-md justify-center items-center bg-green-500 hover:bg-green-600 hover:scale-110"
                           onClick={async () => {
                             await changeStatus("done", todo);
                           }}
@@ -236,12 +257,12 @@ export const MainMenu = () => {
                 return (
                   <div
                     key={todo.id}
-                    className="todo p-1 text-md text-center border border-5 rounded-lg bg-yellow-500 text-black"
+                    className="todo p-1 text-md text-center border border-5 rounded-lg bg-green-500 text-black"
                   >
                     <div className="grid grid-cols-3">
                       <div className="todoChangeState">
                         <button
-                          className="transition duration-200 text-xs lg:text-xl justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
+                          className="transition duration-200 text-xs lg:text-md justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
                           onClick={async () => {
                             await changeStatus("doing", todo);
                           }}
@@ -252,7 +273,7 @@ export const MainMenu = () => {
                       <div className="todoTitle">{todo.title}</div>
                       <div className="todoChangeState">
                         <button
-                          className="transition duration-200 text-xs lg:text-xl justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
+                          className="transition duration-200 text-xs lg:text-md justify-center items-center bg-red-500 hover:bg-red-600 hover:scale-110"
                           onClick={async () => {
                             await deleteTodo(todo);
                           }}
