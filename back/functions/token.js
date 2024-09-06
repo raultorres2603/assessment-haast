@@ -13,6 +13,17 @@ async function signToken(user) {
 
   return token;
 }
+
+async function verifyToken(token) {
+  const secret = new TextEncoder().encode(process.env.SK);
+  try {
+    const { payload } = await jose.jwtVerify(token, secret);
+    return payload;
+  } catch (error) {
+    throw error;
+  }
+}
 module.exports = {
   signToken,
+  verifyToken,
 };

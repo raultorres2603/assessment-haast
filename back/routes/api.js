@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var DB = require("../classes/DB");
 var jose = require("jose");
-var { signToken } = require("../functions/token");
+var { signToken, verifyToken } = require("../functions/token");
 
 /* GET home page. */
 router.post("/login", async function (req, res, next) {
@@ -29,12 +29,18 @@ router.post("/register", async function (req, res, next) {
   }
 });
 
-router.use((req, res, next) => {
+router.use(async (req, res, next) => {
   if (req.baseUrl.indexOf("/api/tasks") !== -1) {
     if (!req.query.token) {
       res.json({ error: "No token" });
     } else {
-      next();
+      // Verify token
+      try {
+        const payload = await verifyToken(req.query.token);
+        next();
+      } catch (error) {
+        res.json({ error: "Token Invalid" });
+      }
     }
   }
 });
