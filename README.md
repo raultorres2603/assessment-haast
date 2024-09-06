@@ -1,4 +1,9 @@
 # Prueba técnica para Full-Stack Dev
+## Descripción del proyecto
+El proyecto está creado de forma responsive entre dispositivos móviles y PC, cambiando su disposición dependiendo del dispositivo en el que se visualiza.
+## Explicaciones técnicas importantes
+Se ha usado ContextApi para manejar los estados globales, no se ha usado Redux por falta de experiencia con la libreria y tiempo de entrega (al estar de vacaciones solo he podido usar el viernes para hacer dicha prueba). Para la actualización de datos se ha usado asincronia y, al ser fructuosa la llamada
+con fetch, actualizar en cliente.
 ## Creación del .env (NECESARIO)
 Para poder utilizar la parte del back, **se necesita un archivo .env**, el cual **se adjuntará por correo al evaluador** y que tendrá que incluir en la raíz del back, es decir, **dentro de la carpeta back**
 ## Utilización del Back-End
