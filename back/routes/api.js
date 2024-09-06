@@ -29,19 +29,47 @@ router.post("/register", async function (req, res, next) {
   }
 });
 
-router.use(async (req, res, next) => {
-  if (req.baseUrl.indexOf("/api/tasks") !== -1) {
-    if (!req.query.token) {
-      res.json({ error: "No token" });
-    } else {
-      // Verify token
-      try {
-        const payload = await verifyToken(req.query.token);
-        next();
-      } catch (error) {
-        res.json({ error: "Token Invalid" });
-      }
-    }
+router.get("/tasks", async function (req, res, next) {
+  try {
+    const tasks = await DB.getTasks(req.query.token);
+    res.json({ tasks: tasks });
+  } catch (error) {
+    res.json({ error: error });
+  }
+});
+
+router.post("/tasks", async function (req, res, next) {
+  try {
+    const task = req.body.task;
+    const token = req.body.token;
+    const result = await DB.addTask(token, task);
+    res.json({ taskId: result });
+  } catch (error) {
+    res.json({ error: error });
+  }
+});
+
+router.put("/tasks/:id", async function (req, res, next) {
+  const idTask = req.params.id;
+  const token = req.query.token;
+  const state = req.query.state;
+
+  try {
+    const result = await DB.updateTask(token, idTask, state);
+    res.json({ modifiedCount: result });
+  } catch (error) {
+    res.json({ error: error });
+  }
+});
+
+router.delete("/tasks/:id", async function (req, res, next) {
+  const idTask = req.params.id;
+  const token = req.query.token;
+  try {
+    const result = await DB.deleteTask(token, idTask);
+    res.json({ deleteCount: result });
+  } catch (error) {
+    res.json({ error: error });
   }
 });
 
