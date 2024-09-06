@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import cfg from "../config/config.json";
-import { Todo } from "../../public/classes/Todo";
+import { Todo } from "../classes/Todo";
 
 export const MainMenu = () => {
   const [todos, setTodos] = useState<Array<Todo>>([]);
@@ -22,11 +22,17 @@ export const MainMenu = () => {
         console.log(data.tasks);
         toast.success("Tareas cargadas", { id: loadingToast });
       } catch (error) {
-        if (error instanceof Error && error.name === "JWSInvalid") {
+        console.log(error);
+        if (
+          (error instanceof Error && error.name === "JWSInvalid") ||
+          (error instanceof Error && error.name == "JWTExpired")
+        ) {
           sessionStorage.removeItem("token");
           window.location.pathname = "/";
         } else {
           toast.error("Error al cargar las tareas", { id: loadingToast });
+          sessionStorage.removeItem("token");
+          window.location.pathname = "/";
         }
       }
     };
